@@ -6,6 +6,7 @@ public class LevelsLibraryDataSerializer : MonoBehaviour
     private string path;
     [SerializeField]
     private LevelsLibraryDataModel levelsLibraryData;
+    public LevelObjectsHandler levelObjectsHandler;
     private void Start()
     {
         Debug.Log("LevelsLibraryDataSerializer Start()");
@@ -18,7 +19,7 @@ public class LevelsLibraryDataSerializer : MonoBehaviour
         else
         {
             Debug.Log("File not exist");
-            SaveLevelsLibrary();
+            ResetLevelsLibrary();
         }
     }
     public void SaveLevelsLibrary()
@@ -30,5 +31,16 @@ public class LevelsLibraryDataSerializer : MonoBehaviour
     {
         Debug.Log("Load levels library");
         levelsLibraryData = JsonUtility.FromJson<LevelsLibraryDataModel>(File.ReadAllText(path));
+    }
+    public void ResetLevelsLibrary()
+    {
+        Debug.Log("Reset levels library");
+        levelsLibraryData = new LevelsLibraryDataModel(0, new System.Collections.Generic.List<CampaingDataModel>());
+        SaveLevelsLibrary();
+    }
+    public void UpdateLevelsLibrary()
+    {
+        Debug.Log("Update levels Library");
+        levelObjectsHandler.GetLevelObjects();
     }
 }

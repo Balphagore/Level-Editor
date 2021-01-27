@@ -5,11 +5,14 @@ public class LevelObjectsHandler : MonoBehaviour
     public Transform cameraTransform;
     public Transform lightTransform;
     public GameObject planesContainer;
+    public GameObject planePrefab;
     public GameObject terrainsContainer;
+    public List<GameObject> terrainPrefabs;
     public GameObject buildingSlotsContainer;
+    public GameObject buildingSlotPrefab;
     [SerializeField]
     private LevelDataModel level;
-    public void GetLevelObjects()
+    public LevelDataModel GetLevelObjects()
     {
         Debug.Log("Get Level Objects");
         List<PlaneDataModel> planes = new List<PlaneDataModel>();
@@ -28,5 +31,24 @@ public class LevelObjectsHandler : MonoBehaviour
             buildingSlots.Add(new BuildingSlotDataModel(i, buildingSlotsContainer.transform.GetChild(i).transform.position, buildingSlotsContainer.transform.GetChild(i).transform.rotation));
         }
         level = new LevelDataModel(0, new TranslationVariantDataModel("---", "---"), new TranslationVariantDataModel("---", "---"), cameraTransform.position, lightTransform.rotation, planes,terrains,buildingSlots,new List<WaveDataModel>());
+        return level;
+    }
+    public void SpawnLevelObjects(LevelDataModel levelData)
+    {
+        Debug.Log("SpawnLevelObjects()");
+        cameraTransform.position = levelData.cameraPosition;
+        lightTransform.rotation = levelData.lightRotation;
+        for(int i=0;i<levelData.planes.Count;i++)
+        {
+            Instantiate(planePrefab, levelData.planes[i].position, Quaternion.identity, planesContainer.transform);
+        }
+        for (int i = 0; i < levelData.terrains.Count; i++)
+        {
+            Instantiate(terrainPrefabs[levelData.terrains[i].type], levelData.terrains[i].position, levelData.terrains[i].rotation, terrainsContainer.transform);
+        }
+        for( int i=0; i<levelData.buildingSlots.Count;i++)
+        {
+            Instantiate(buildingSlotPrefab, levelData.buildingSlots[i].position, levelData.buildingSlots[i].rotation, buildingSlotsContainer.transform);
+        }
     }
 }

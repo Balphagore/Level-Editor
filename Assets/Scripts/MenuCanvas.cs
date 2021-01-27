@@ -2,10 +2,10 @@
 public class MenuCanvas : MonoBehaviour
 {
     public LevelsLibraryDataSerializer levelsLibraryDataSerializer;
-    public void OnUpdateLevelsLibraryButtonClick()
+    public void OnSaveLevelButtonClick()
     {
-        Debug.Log("OnUpdateLevelsLibraryButtonClick()");
-        levelsLibraryDataSerializer.UpdateLevelsLibrary();
+        Debug.Log("OnSaveLevelButtonClick()");
+        levelsLibraryDataSerializer.SaveLevel();
     }
     public void OnSaveLevelsLibraryButtonClick()
     {
@@ -16,5 +16,10 @@ public class MenuCanvas : MonoBehaviour
     {
         Debug.Log("OnResetLevelsLibraryButtonClick()");
         levelsLibraryDataSerializer.ResetLevelsLibrary();
+    }
+    public void OnLoadLevelButtonClick()
+    {
+        Debug.Log("OnLoadLevelButtonClick()");
+        levelsLibraryDataSerializer.LoadLevel();
     }
 }

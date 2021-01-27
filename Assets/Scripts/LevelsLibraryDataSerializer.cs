@@ -5,6 +5,10 @@ public class LevelsLibraryDataSerializer : MonoBehaviour
     [SerializeField]
     private string path;
     [SerializeField]
+    private int currentCampaingNumber;
+    [SerializeField]
+    private int currentLevelNumber;
+    [SerializeField]
     private LevelsLibraryDataModel levelsLibraryData;
     public LevelObjectsHandler levelObjectsHandler;
     private void Start()
@@ -38,9 +42,16 @@ public class LevelsLibraryDataSerializer : MonoBehaviour
         levelsLibraryData = new LevelsLibraryDataModel(0, new System.Collections.Generic.List<CampaingDataModel>());
         SaveLevelsLibrary();
     }
-    public void UpdateLevelsLibrary()
+    public void LoadLevel()
     {
-        Debug.Log("Update levels Library");
-        levelObjectsHandler.GetLevelObjects();
+        Debug.Log("Load level");
+        levelObjectsHandler.SpawnLevelObjects(levelsLibraryData.campaings[currentCampaingNumber-1].levels[currentLevelNumber-1]);
+    }
+    public void SaveLevel()
+    {
+        Debug.Log("Save level");
+        Debug.Log(levelObjectsHandler.GetLevelObjects().cameraPosition);
+        levelsLibraryData.campaings[currentCampaingNumber-1].levels[currentLevelNumber-1] = levelObjectsHandler.GetLevelObjects();
+        SaveLevelsLibrary();
     }
 }

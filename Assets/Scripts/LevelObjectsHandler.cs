@@ -18,24 +18,36 @@ public class LevelObjectsHandler : MonoBehaviour
         List<PlaneDataModel> planes = new List<PlaneDataModel>();
         for (int i = 0; i < planesContainer.transform.childCount; i++)
         {
-            planes.Add(new PlaneDataModel(i, planesContainer.transform.GetChild(i).transform.position));
+            planes.Add(new PlaneDataModel(planesContainer.transform.GetChild(i).transform.position));
         }
         List<TerrainDataModel> terrains = new List<TerrainDataModel>();
         for (int i = 0; i < terrainsContainer.transform.childCount; i++)
         {
-            terrains.Add(new TerrainDataModel(i, terrainsContainer.transform.GetChild(i).transform.GetComponent<TerrainHandler>().type, terrainsContainer.transform.GetChild(i).transform.position, terrainsContainer.transform.GetChild(i).transform.rotation));
+            terrains.Add(new TerrainDataModel(terrainsContainer.transform.GetChild(i).transform.GetComponent<TerrainHandler>().type, terrainsContainer.transform.GetChild(i).transform.position, terrainsContainer.transform.GetChild(i).transform.rotation));
         }
         List<BuildingSlotDataModel> buildingSlots = new List<BuildingSlotDataModel>();
         for (int i = 0; i < buildingSlotsContainer.transform.childCount; i++)
         {
-            buildingSlots.Add(new BuildingSlotDataModel(i, buildingSlotsContainer.transform.GetChild(i).transform.position, buildingSlotsContainer.transform.GetChild(i).transform.rotation));
+            buildingSlots.Add(new BuildingSlotDataModel(buildingSlotsContainer.transform.GetChild(i).transform.position, buildingSlotsContainer.transform.GetChild(i).transform.rotation));
         }
-        level = new LevelDataModel(0, new TranslationVariantDataModel("---", "---"), new TranslationVariantDataModel("---", "---"), cameraTransform.position, lightTransform.rotation, planes,terrains,buildingSlots,new List<WaveDataModel>());
+        level = new LevelDataModel(new TranslationVariantDataModel("---", "---"), new TranslationVariantDataModel("---", "---"), cameraTransform.position, lightTransform.rotation, planes,terrains,buildingSlots,new List<WaveDataModel>());
         return level;
     }
     public void SpawnLevelObjects(LevelDataModel levelData)
     {
         Debug.Log("SpawnLevelObjects()");
+        foreach (Transform child in planesContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in terrainsContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in buildingSlotsContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
         cameraTransform.position = levelData.cameraPosition;
         lightTransform.rotation = levelData.lightRotation;
         for(int i=0;i<levelData.planes.Count;i++)

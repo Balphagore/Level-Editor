@@ -22,4 +22,14 @@ public class MenuCanvas : MonoBehaviour
         Debug.Log("OnLoadLevelButtonClick()");
         levelsLibraryDataSerializer.LoadLevel();
     }
+    public void OnAddCampaingButtonClick()
+    {
+        Debug.Log("OnAddCampaingButtonClick()");
+        levelsLibraryDataSerializer.AddCampaing();
+    }
+    public void OnAddLevelButtonClick()
+    {
+        Debug.Log("OnAddLevelButtonClick()");
+        levelsLibraryDataSerializer.AddLevel();
+    }
 }

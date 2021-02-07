@@ -152,6 +152,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &101021698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 101021699}
+  m_Layer: 0
+  m_Name: Path Variants Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &101021699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101021698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 172109849}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &119327472
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +195,7 @@ GameObject:
   - component: {fileID: 119327475}
   - component: {fileID: 119327474}
   m_Layer: 5
-  m_Name: LoadLevelButton
+  m_Name: Load Level Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +323,7 @@ GameObject:
   - component: {fileID: 172109849}
   - component: {fileID: 172109850}
   m_Layer: 0
-  m_Name: LevelObjectsHandler
+  m_Name: Level Objects Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,6 +345,7 @@ Transform:
   - {fileID: 985792616}
   - {fileID: 375032519}
   - {fileID: 611693766}
+  - {fileID: 101021699}
   m_Father: {fileID: 1246959933}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -344,8 +375,12 @@ MonoBehaviour:
   buildingSlotsContainer: {fileID: 611693765}
   buildingSlotPrefab: {fileID: 4765030449109946186, guid: dddb520647248fa4397c65c51d63b903,
     type: 3}
+  pathVariantsContainer: {fileID: 101021698}
+  pathVariantPrefab: {fileID: 5005287132074790792, guid: 363cfc1285aa3f647bd6229122db6bbc,
+    type: 3}
+  wayPointPrefab: {fileID: 5936577657659012624, guid: 12e554e2bc63e7b4682f7cf1fc61ff48,
+    type: 3}
   level:
-    id: 0
     nameTranslations:
       english: 
       russian: 
@@ -527,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375032519}
   m_Layer: 0
-  m_Name: TerrainsContainer
+  m_Name: Terrains Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,7 +672,7 @@ GameObject:
   - component: {fileID: 579721514}
   - component: {fileID: 579721513}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: Event System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -701,7 +736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 611693766}
   m_Layer: 0
-  m_Name: BuildingSlotsContainer
+  m_Name: Building Slots Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -826,7 +861,7 @@ GameObject:
   - component: {fileID: 731952468}
   - component: {fileID: 731952467}
   m_Layer: 5
-  m_Name: SaveLevelsLibraryButton
+  m_Name: Save Levels Library Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1066,7 +1101,7 @@ GameObject:
   - component: {fileID: 894034147}
   - component: {fileID: 894034146}
   m_Layer: 5
-  m_Name: ResetLevelsLibraryButton
+  m_Name: Reset Levels Library Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1276,7 +1311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985792616}
   m_Layer: 0
-  m_Name: PlanesContainer
+  m_Name: Planes Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1310,7 +1345,7 @@ GameObject:
   - component: {fileID: 1132134591}
   - component: {fileID: 1132134590}
   m_Layer: 5
-  m_Name: MenuCanvas
+  m_Name: Menu Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1533,7 +1568,7 @@ GameObject:
   - component: {fileID: 1303885042}
   - component: {fileID: 1303885041}
   m_Layer: 5
-  m_Name: AddLevelButton
+  m_Name: Add Level Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1663,7 +1698,7 @@ GameObject:
   - component: {fileID: 1378869192}
   - component: {fileID: 1378869191}
   m_Layer: 5
-  m_Name: AddCampaingButton
+  m_Name: Add Campaing Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1791,7 +1826,7 @@ GameObject:
   - component: {fileID: 1396503151}
   - component: {fileID: 1396503152}
   m_Layer: 0
-  m_Name: LevelsLibraryDataSerializer
+  m_Name: Levels Library Data Serializer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1842,7 +1877,7 @@ GameObject:
   - component: {fileID: 1516073345}
   - component: {fileID: 1516073344}
   m_Layer: 5
-  m_Name: SaveLevelButton
+  m_Name: Save Level Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

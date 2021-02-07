@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 public class LevelObjectsHandler : MonoBehaviour
 {
-    public Transform cameraTransform;
-    public Transform lightTransform;
-    public GameObject planesContainer;
-    public GameObject planePrefab;
-    public GameObject terrainsContainer;
-    public List<GameObject> terrainPrefabs;
-    public GameObject buildingSlotsContainer;
-    public GameObject buildingSlotPrefab;
-    [SerializeField]
-    private LevelDataModel level;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Transform lightTransform;
+    [SerializeField] private GameObject planesContainer;
+    [SerializeField] private GameObject planePrefab;
+    [SerializeField] private GameObject terrainsContainer;
+    [SerializeField] private List<GameObject> terrainPrefabs;
+    [SerializeField] private GameObject buildingSlotsContainer;
+    [SerializeField] private GameObject buildingSlotPrefab;
+    [SerializeField] private GameObject pathVariantsContainer;
+    [SerializeField] private GameObject pathVariantPrefab;
+    [SerializeField] private GameObject wayPointPrefab;
+    [SerializeField] private LevelDataModel level;
     public LevelDataModel GetLevelObjects()
     {
         Debug.Log("Get Level Objects");
@@ -32,6 +34,20 @@ public class LevelObjectsHandler : MonoBehaviour
         }
         level = new LevelDataModel(new TranslationVariantDataModel("---", "---"), new TranslationVariantDataModel("---", "---"), cameraTransform.position, lightTransform.rotation, planes,terrains,buildingSlots,new List<WaveDataModel>());
         return level;
+    }
+    public List<PathVariantDataModel> GetPathVariants()
+    {
+        List<PathVariantDataModel> pathVariants = new List<PathVariantDataModel>();
+        for (int i = 0; i < pathVariantsContainer.transform.childCount; i++)
+        {
+            List<WayPointDataModel> wayPoints = new List<WayPointDataModel>();
+            for (int j = 1; j < pathVariantsContainer.transform.GetChild(i).transform.childCount-1; j++)
+            {
+                wayPoints.Add(new WayPointDataModel(pathVariantsContainer.transform.GetChild(i).transform.GetChild(j).transform.position));
+            }
+            pathVariants.Add(new PathVariantDataModel(pathVariantsContainer.transform.GetChild(i).transform.GetChild(0).transform.position, pathVariantsContainer.transform.GetChild(i).transform.GetChild(0).transform.rotation, wayPoints, pathVariantsContainer.transform.GetChild(i).transform.GetChild(pathVariantsContainer.transform.GetChild(i).transform.childCount-1).transform.position, pathVariantsContainer.transform.GetChild(i).transform.GetChild(pathVariantsContainer.transform.GetChild(i).transform.childCount - 1).transform.rotation));
+        }
+        return pathVariants;
     }
     public void SpawnLevelObjects(LevelDataModel levelData)
     {
@@ -61,6 +77,16 @@ public class LevelObjectsHandler : MonoBehaviour
         for( int i=0; i<levelData.buildingSlots.Count;i++)
         {
             Instantiate(buildingSlotPrefab, levelData.buildingSlots[i].position, levelData.buildingSlots[i].rotation, buildingSlotsContainer.transform);
+        }
+        for(int i=0;i< levelData.pathVariants.Count;i++)
+        {
+            GameObject prefab=Instantiate(pathVariantPrefab, pathVariantsContainer.transform);
+            Instantiate(wayPointPrefab, levelData.pathVariants[i].spawnPointPosition, levelData.pathVariants[i].spawnPointRotation, prefab.transform);
+            for(int j=0;j<levelData.pathVariants[i].wayPoints.Count;j++)
+            {
+                Instantiate(wayPointPrefab, levelData.pathVariants[i].wayPoints[j].wayPointPosition, Quaternion.identity,prefab.transform);
+            }
+            Instantiate(wayPointPrefab, levelData.pathVariants[i].endPointPosition, levelData.pathVariants[i].endPointRotation, prefab.transform);
         }
     }
 }

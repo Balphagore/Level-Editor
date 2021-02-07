@@ -3,15 +3,11 @@ using System.IO;
 using System.Collections.Generic;
 public class LevelsLibraryDataSerializer : MonoBehaviour
 {
-    [SerializeField]
-    private string path;
-    [SerializeField]
-    private int currentCampaingNumber;
-    [SerializeField]
-    private int currentLevelNumber;
-    [SerializeField]
-    private LevelsLibraryDataModel levelsLibraryData;
-    public LevelObjectsHandler levelObjectsHandler;
+    [SerializeField] private string path;
+    [SerializeField] private int currentCampaingNumber;
+    [SerializeField] private int currentLevelNumber;
+    [SerializeField] private LevelsLibraryDataModel levelsLibraryData;
+    [SerializeField] private LevelObjectsHandler levelObjectsHandler;
     private void Start()
     {
         Debug.Log("LevelsLibraryDataSerializer Start()");
@@ -80,8 +76,13 @@ public class LevelsLibraryDataSerializer : MonoBehaviour
     public void SaveLevel()
     {
         Debug.Log("Save level");
-        Debug.Log(levelObjectsHandler.GetLevelObjects().cameraPosition);
-        levelsLibraryData.campaings[currentCampaingNumber-1].levels[currentLevelNumber-1] = levelObjectsHandler.GetLevelObjects();
+        LevelDataModel level = levelObjectsHandler.GetLevelObjects();
+        levelsLibraryData.campaings[currentCampaingNumber-1].levels[currentLevelNumber-1].lightRotation = level.lightRotation;
+        levelsLibraryData.campaings[currentCampaingNumber - 1].levels[currentLevelNumber - 1].cameraPosition = level.cameraPosition;
+        levelsLibraryData.campaings[currentCampaingNumber - 1].levels[currentLevelNumber - 1].planes = level.planes;
+        levelsLibraryData.campaings[currentCampaingNumber - 1].levels[currentLevelNumber - 1].terrains = level.terrains;
+        levelsLibraryData.campaings[currentCampaingNumber - 1].levels[currentLevelNumber - 1].buildingSlots = level.buildingSlots;
+        levelsLibraryData.campaings[currentCampaingNumber - 1].levels[currentLevelNumber - 1].pathVariants = levelObjectsHandler.GetPathVariants();
         SaveLevelsLibrary();
     }
     public void AddLevel()
